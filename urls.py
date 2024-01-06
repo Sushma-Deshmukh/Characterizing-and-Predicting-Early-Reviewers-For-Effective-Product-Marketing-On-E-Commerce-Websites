@@ -1,34 +1,14 @@
-"""CHARACTERIZING_AND_PREDICTING URL Configuration
+from django.conf.urls import url
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
-from django.conf.urls import url, include
-from django.conf.urls.static import static
-from django.contrib import admin
+from user import views
 
-from CHARACTERIZING_AND_PREDICTING import settings
-
-from admins.urls import urlpattern as admin_urlpatterns
-from user.urls import urlpattern as users_urlpatterns
-from vendor.urls import urlpattern as vendor_urlpatterns
-
-
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^admins/',include((admin_urlpatterns,'admins'),namespace='admins'),name='admins'),
-    url(r'',include((users_urlpatterns,'user'),namespace='user'),name='user'),
-    url(r'^vendor/',include((vendor_urlpatterns,'vendor'),namespace='vendor'),name='vendor'),
+urlpattern = [
+    url(r'^$',views.index,name='index'),
+    url(r'^registration$',views.registration,name='registration'),
+    url(r'^home/$',views.home,name='home'),
+    url(r'^Cart/$',views.cart,name='cart'),
+    url(r'^View/Ratings/(?P<pk>\d+)/$',views.viewratings,name='ratings'),
+    url(r'^Add/Ratings/(?P<pk>\d+)/$',views.addratings,name='addratings'),
+    url(r'^view/product/(?P<pk>\d+)/$',views.viewproduct,name='viewproduct'),
+    url(r'^logout/$',views.logout,name='logout'),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
